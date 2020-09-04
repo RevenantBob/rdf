@@ -1,0 +1,97 @@
+#ifndef __INCLUDE_RDFLEX_H__
+#define __INCLUDE_RDFLEX_H__
+
+enum
+{
+	RDFLEX_IDENTIFIER = 256,
+	RDFLEX_NUMBER,
+	RDFLEX_CONST_FLOAT,
+	RDFLEX_RIGHT_ASSIGN,
+	RDFLEX_LEFT_ASSIGN,
+	RDFLEX_ADD_ASSIGN,
+	RDFLEX_SUB_ASSIGN,
+	RDFLEX_MUL_ASSIGN,
+	RDFLEX_DIV_ASSIGN,
+	RDFLEX_MOD_ASSIGN,
+	RDFLEX_AND_ASSIGN,
+	RDFLEX_XOR_ASSIGN,
+	RDFLEX_OR_ASSIGN,
+	RDFLEX_RIGHT_OP,
+	RDFLEX_LEFT_OP,
+	RDFLEX_INC_OP,
+	RDFLEX_DEC_OP,
+	RDFLEX_AND_OP,
+	RDFLEX_OR_OP,
+	RDFLEX_LE_OP,
+	RDFLEX_GE_OP,
+	RDFLEX_EQ_OP,
+	RDFLEX_NE_OP,
+	RDFLEX_STRING_LITERAL,
+	RDFLEX_ELLIPSIS,
+	RDFLEX_POINTSAT,
+	RDFLEX_CONSTANT,
+/* reserved keywords */
+	RDFLEX_AUTO,
+	RDFLEX_BREAK,
+	RDFLEX_CASE,
+	RDFLEX_CHAR,
+	RDFLEX_CONST,
+	RDFLEX_CONTINUE,
+	RDFLEX_DEFAULT,
+	RDFLEX_DO,
+	RDFLEX_DOUBLE,
+	RDFLEX_ELSE,
+	RDFLEX_ENUM,
+	RDFLEX_EXTERN,
+	RDFLEX_FLOAT,
+	RDFLEX_FOR,
+	RDFLEX_GOTO,
+	RDFLEX_IF,
+	RDFLEX_INT,
+	RDFLEX_LONG,
+	RDFLEX_REGISTER,
+	RDFLEX_RETURN,
+	RDFLEX_SHORT,
+	RDFLEX_SIGNED,
+	RDFLEX_SIZEOF,
+	RDFLEX_STATIC,
+	RDFLEX_STRUCT,
+	RDFLEX_SWITCH,
+	RDFLEX_TYPEDEF,
+	RDFLEX_UNION,
+	RDFLEX_UNSIGNED,
+	RDFLEX_VOID,
+	RDFLEX_VOLATILE,
+	RDFLEX_WHILE,
+	RDFLEX_INT8,
+	RDFLEX_INT16,
+	RDFLEX_INT32,
+	RDFLEX_INT64,
+	RDFLEX_INT128,
+	RDFLEX_INT256,
+};
+
+struct smx;
+
+struct rdf_lex_token
+{
+	int			type;
+	char	*	value;
+};
+
+struct rdf_lex_stack
+{
+	struct rdf_lex_token	**	stack;
+	unsigned int				stack_pos;
+	unsigned int				stack_size;
+};
+
+struct rdf_parser;
+struct rdf_lex_token *rdf_lex_pop(struct rdf_parser *);
+int rdf_lex_push(struct rdf_lex_token *, struct rdf_parser *);
+void rdf_lex_free_token(struct rdf_lex_token *tok);
+
+int rdf_lex_lex(struct rdf_smx *smx);
+int rdf_lex_init(struct rdf_smx *smx);
+
+#endif
